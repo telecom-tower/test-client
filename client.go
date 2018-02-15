@@ -28,23 +28,40 @@ func main() {
 		if err := client.Clear(0, 1); err != nil {
 			log.Fatalf("Error clearing display: %v", err)
 		}
-		if err := client.SetPixels([]sdk.Pixel{
-			sdk.Pixel{image.Point{0, 0}, color.RGBA{255, 60, 60, 255}},
-			sdk.Pixel{image.Point{1, 1}, color.RGBA{60, 255, 255, 255}},
-		}); err != nil {
+		if err := client.SetPixels(
+			[]sdk.Pixel{
+				sdk.Pixel{
+					Point: image.Point{0, 0},
+					Color: color.RGBA{255, 60, 60, 255},
+				},
+				sdk.Pixel{
+					Point: image.Point{1, 1},
+					Color: color.RGBA{60, 255, 255, 255},
+				},
+			}, 0, sdk.PaintMode); err != nil {
 			log.Fatalf("Error setting pixels: %v", err)
 		}
 		if err := client.DrawRectangle(
 			image.Rect(2, 0, 6, 6),
 			color.RGBA{255, 255, 255, 255},
-			0); err != nil {
+			0, sdk.PaintMode); err != nil {
 			log.Fatalf("Error setting pixels: %v", err)
 		}
 		if err := client.DrawRectangle(
 			image.Rect(4, 2, 8, 8),
 			color.RGBA{0, 255, 0, 128},
-			1); err != nil {
+			1, sdk.PaintMode); err != nil {
 			log.Fatalf("Error setting pixels: %v", err)
+		}
+		if err := client.WriteText(
+			"Hello nice little wonderful world", "8x8", 10,
+			color.RGBA{255, 255, 255, 255}, 0, sdk.PaintMode); err != nil {
+			log.Fatalf("Error writing text: %v", err)
+		}
+		if err := client.WriteText(
+			"World", "6x8", 20,
+			color.RGBA{32, 32, 255, 180}, 0, sdk.OverMode); err != nil {
+			log.Fatalf("Error writing text: %v", err)
 		}
 		if err := client.Render(); err != nil {
 			log.Fatalf("Error rendering: %v", err)
@@ -59,9 +76,15 @@ func main() {
 			log.Fatalf("Error clearing display: %v", err)
 		}
 		if err := client.SetPixels([]sdk.Pixel{
-			sdk.Pixel{image.Point{1, 1}, color.RGBA{255, 60, 60, 255}},
-			sdk.Pixel{image.Point{0, 0}, color.RGBA{60, 255, 255, 255}},
-		}); err != nil {
+			sdk.Pixel{
+				Point: image.Point{1, 1},
+				Color: color.RGBA{255, 60, 60, 255},
+			},
+			sdk.Pixel{
+				Point: image.Point{0, 0},
+				Color: color.RGBA{60, 255, 255, 255},
+			},
+		}, 0, sdk.PaintMode); err != nil {
 			log.Fatalf("Error setting pixels: %v", err)
 		}
 		if err := client.Render(); err != nil {
