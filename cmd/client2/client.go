@@ -46,11 +46,11 @@ func main() {
 				image.Rect(i, 0, i+8, 8), color.RGBA{0, 255, 0, 128},
 				1, sdk.PaintMode), "Error setting pixels")
 			check(client.Render(), "Error rendering")
-			time.Sleep(100 * time.Millisecond)
+			time.Sleep(50 * time.Millisecond)
 		}
 		time.Sleep(2 * time.Second)
 
-		msg := strings.Split("Hello Telecom Tower, do you hear me ?", " ")
+		msg := strings.Split("Hello Telecom Tower, do you hear me ? In what language are you written ?", " ")
 		txt := ""
 		for _, w := range msg {
 			if txt == "" {
@@ -69,7 +69,7 @@ func main() {
 				check(client.SetLayerOrigin(0, image.Point{len(txt)*6 - 128, 0}), "Error")
 			}
 			check(client.Render(), "Error rendering")
-			time.Sleep(600 * time.Millisecond)
+			time.Sleep(200 * time.Millisecond)
 		}
 
 		time.Sleep(1 * time.Second)
