@@ -20,6 +20,7 @@ func check(err error, msg string) {
 }
 
 func main() {
+	// conn, err := grpc.Dial("telecom-tower.sofr.hefr.lan:10000", grpc.WithInsecure())
 	conn, err := grpc.Dial("127.0.0.1:10000", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Error dialing server: %v", err)
@@ -30,7 +31,7 @@ func main() {
 	for {
 		log.Print("Frame 1")
 		check(client.StartDrawing(context.Background()), "Error getting frame")
-		check(client.Clear(0, 1), "Error clearing display: %v")
+		check(client.Init(), "Error during init")
 		check(client.SetPixels(
 			[]sdk.Pixel{
 				sdk.Pixel{
